@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="Computei Consultoria TI" />
+        <title>Grajaú-Jacarepaguá</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+
+        <div class="nav-scroller bg-white shadow-sm">
+            <nav class="nav nav-underline">
+                    <a class="nav-link active" href="http://cor.rio/paineldocomando/index.html">reiniciando em: &rarr; &nbsp<small  id="timer"></small></a>
+                    <a class="nav-link active" href="http://cor.rio/paineldocomando/painel.html"><small>Acessar Painel Fixo</small></a>
+              
+              
+            </nav>
+          </div>
+    
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+    
+    
+    
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Divider -->
+                <br>
+                <hr class="sidebar-divider my-0">
+                <!-- Main Content -->
+                <div id="content">
+    
+    
+                    <!-- End of Topbar -->
+    
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+    
+    
+    
+    
+    
+                        <script>
+                            function startTimer(duration, display) {
+                                var timer = duration, minutes, seconds;
+                                setInterval(function () {
+                                    minutes = parseInt(timer / 60, 10);
+                                    seconds = parseInt(timer % 60, 10);
+                                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                                    display.textContent = minutes + ":" + seconds;
+                                    if (--timer < 0) {
+                                        timer = duration;
+                                    }
+                                }, 1000);
+                            }
+                            window.onload = function () {
+                                var duration = 60 * 5; // Converter para segundos
+                                display = document.querySelector('#timer'); // selecionando o timer
+                                startTimer(duration, display); // iniciando o timer
+                            };
+                        </script>
+    
+                        <div class="table-responsive align-items-center">
+    
+                            <iframe width="1280" height="720"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiNzQ1ZTMwNTEtMTQzNS00OGI5LWFiYTMtNzlmYmM5MTYyMGNkIiwidCI6IjhkYzFiNzM0LTEyYTYtNDNmZC1iMjdkLWE3Yzg0ZmQ0MzdkMiJ9"
+                                frameborder="0" allowFullScreen="true"></iframe>
+                        </div>
+    
+    
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+    
+            </div>
+            <!-- End of Main Content -->
+    
+          
+    
+        </div>
+    
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
