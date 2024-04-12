@@ -1,4 +1,4 @@
-var numeroSecreto = "3221@"
+var numeroSecreto = "Sara@"
 
 // parseInt(Math.random() * 1001);
 
