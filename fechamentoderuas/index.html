@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Exibição de um Fechamento de Rua (dados exportados)</title>
+    
+    <!-- Inclui o CSS do Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+    <!-- Inclui o JS do Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Travessa da Fraternidade</h1>
+    <div id="map"></div>
+
+    <script>
+        // Inicializa o mapa
+        var map = L.map('map').setView([0, 0], 2); // Coordenadas iniciais (latitude, longitude)
+
+        // Adiciona uma camada de mapa (tile layer)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Função para exibir as coordenadas ao clicar no mapa
+        map.on('click', function(e) {
+            alert("Coordenadas: " + e.latlng.lat + ", " + e.latlng.lng);
+        });
+
+        // Carregar e exibir o arquivo GeoJSON
+        fetch('linhas.json')
+            .then(response => response.json())
+            .then(data => {
+                // Adiciona o GeoJSON ao mapa
+                L.geoJSON(data).addTo(map);
+
+                // Ajusta a exibição do mapa para se ajustar ao conteúdo do GeoJSON
+                map.fitBounds(L.geoJSON(data).getBounds());
+            })
+            .catch(error => {
+                console.error("Erro ao carregar o arquivo GeoJSON:", error);
+            });
+    </script>
+</body>
+</html>
