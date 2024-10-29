@@ -63,105 +63,118 @@
             <!-- Main Content -->
             <div id="content">
 
-
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-        <div class="card-body"><div id="map"></div>
-
-    <!-- Tabela para exibir os dados -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                            </tr>
-                        </tfoot>
-        <tbody>
-            <!-- As linhas da tabela serão inseridas aqui -->
-        </tbody>
-    </table>
-
-        </div>
-    </div>
-</div>
-</div>
-
-    <script>
-        // Inicializa o mapa
-        var map = L.map('map').setView([-22.930781, -43.421142], 11); // Coordenadas centradas no seu GeoJSON
-
-        // Adiciona uma camada de mapa (tile layer)
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Função para adicionar tooltip com informações do GeoJSON
-        function onEachFeature(feature, layer) {
-            // Verifica se há propriedades para exibir
-            if (feature.properties) {
-                // Cria o conteúdo do tooltip com base nas propriedades
-                var tooltipContent = "<strong>Processo:</strong> " + feature.properties.Planilha_3 + "<br>" +
-                                     "<strong>Descrição:</strong> " + feature.properties.Planilha_5;
+                    <div class="card-body">
+                        <div id="map"></div>
                 
-                // Adiciona o tooltip ao layer
-                layer.bindTooltip(tooltipContent);
-            }
-        }
+                    
+                    </div>
+                
+                </div>
+                <script>
+                    // Função para obter o valor de um parâmetro da URL
+                    function getUrlParameter(name) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        return urlParams.get(name);
+                    }
+                
+                    // Obtém o valor do parâmetro CONTROLE
+                    const controleParam = getUrlParameter('CONTROLE');
+                
+                    // Inicializa o mapa com uma visualização padrão
+                    var map = L.map('map').setView([-22.930781, -43.421142], 11);
+                
+                    // Adiciona uma camada de mapa (tile layer)
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                
+                    // Define um estilo para os pontos gerais
+                    function defaultStyle(feature) {
+                        return {
+                            color: "#3388ff",
+                            weight: 3
+                        };
+                    }
+                
+                    // Define um estilo especial para o ponto do CONTROLE selecionado
+                    function highlightStyle(feature) {
+                        return {
+                            color: "#ff7800",
+                            weight: 5,
+                            opacity: 1
+                        };
+                    }
+                
+                    // Função para adicionar tooltip com informações do GeoJSON
+                    function onEachFeature(feature, layer) {
+                        if (feature.properties) {
+                            var tooltipContent = "<strong>Processo:</strong> " + feature.properties.Planilha_3 + "<br>" +
+                                                 "<strong>Descrição:</strong> " + feature.properties.Planilha_5;
+                            layer.bindTooltip(tooltipContent);
+                        }
+                    }
+                
+                    // Carrega o arquivo GeoJSON
+                    fetch('linhas.json')  
+                        .then(response => response.json())
+                        .then(data => {
+                            // Adiciona todos os recursos ao mapa e aplica estilos
+                            L.geoJSON(data, {
+                                style: function(feature) {
+                                    return feature.properties.CONTROLE == controleParam ? highlightStyle(feature) : defaultStyle(feature);
+                                },
+                                onEachFeature: onEachFeature
+                            }).addTo(map);
+                
+                            // Localiza o recurso com o CONTROLE especificado e ajusta o zoom para focar nele
+                            const selectedFeature = data.features.find(f => f.properties.CONTROLE == controleParam);
+                            if (selectedFeature) {
+                                const firstCoordinate = selectedFeature.geometry.coordinates[0][0];
+                                map.setView([firstCoordinate[1], firstCoordinate[0]], 17);
+                                
+                                // Popula a tabela com todos os recursos e destaca o selecionado
+                                populateTable(data.features, selectedFeature.properties.CONTROLE);
+                            } else {
+                                console.warn("Nenhum recurso encontrado para o CONTROLE especificado.");
+                                populateTable(data.features);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Erro ao carregar o arquivo GeoJSON:", error);
+                        });
+                
+                    // Função para preencher a tabela com dados e destacar o selecionado
+                    function populateTable(features, selectedControle) {
+                        const tbody = document.querySelector("#dataTable tbody");
+                        tbody.innerHTML = '';
+                
+                        features.forEach(feature => {
+                            if (feature.properties) {
+                                const row = document.createElement("tr");
+                                const processoCell = document.createElement("td");
+                                const descricaoCell = document.createElement("td");
+                
+                                processoCell.textContent = feature.properties.Planilha_3;
+                                descricaoCell.textContent = feature.properties.Planilha_5;
+                
+                                // Adiciona uma classe para destacar a linha correspondente ao CONTROLE
+                                if (feature.properties.CONTROLE == selectedControle) {
+                                    row.style.backgroundColor = "#ffdd99";  // Cor de destaque
+                                }
+                
+                                row.appendChild(processoCell);
+                                row.appendChild(descricaoCell);
+                                tbody.appendChild(row);
+                            }
+                        });
+                    }
+                </script>
+                
+                
+                
 
-        // Carregar e exibir o arquivo GeoJSON
-        fetch('linhas.json')  // Atualize para o caminho correto do arquivo GeoJSON
-            .then(response => response.json())
-            .then(data => {
-                // Adiciona o GeoJSON ao mapa com a função de tooltip
-                L.geoJSON(data, {
-                    onEachFeature: onEachFeature // Função chamada para cada feature
-                }).addTo(map);
 
-                // Ajusta a exibição do mapa para se ajustar ao conteúdo do GeoJSON
-                map.fitBounds(L.geoJSON(data).getBounds());
-
-                // Popula a tabela com dados do GeoJSON
-                populateTable(data.features);
-            })
-            .catch(error => {
-                console.error("Erro ao carregar o arquivo GeoJSON:", error);
-            });
-
-        // Função para preencher a tabela com dados
-        function populateTable(features) {
-            const tbody = document.querySelector("#dataTable tbody");
-            tbody.innerHTML = ''; // Limpa o conteúdo anterior
-
-            features.forEach(feature => {
-                if (feature.properties) {
-                    // Cria uma nova linha da tabela
-                    const row = document.createElement("tr");
-                    const processoCell = document.createElement("td");
-                    const descricaoCell = document.createElement("td");
-
-                    processoCell.textContent = feature.properties.Planilha_3;
-                    descricaoCell.textContent = feature.properties.Planilha_5;
-
-                    row.appendChild(processoCell);
-                    row.appendChild(descricaoCell);
-                    tbody.appendChild(row);
-                }
-            });
-        }
-    </script>
 
    <!-- Scroll to Top Button-->
    <a class="scroll-to-top rounded" href="#page-top">
