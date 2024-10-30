@@ -67,35 +67,35 @@
                     // Função para adicionar tooltip com informações do GeoJSON
                     function onEachFeature(feature, layer) {
                         if (feature.properties) {
-                            var tooltipContent = "<strong>CONTROLE:</strong> " + feature.properties.CONTROLE + "<br>" +
-                                                 "<strong>MONITOR:</strong> " + feature.properties.Planilha_1 + "<br>" +
-                                                 "<strong>TIPO:</strong> " + feature.properties.Planilha_2 +  "<strong> NUMERO:</strong> " + feature.properties.Planilha_3 + "<br>" +
-                                                 "<strong>DATA DO DOC.:</strong> " + feature.properties.Planilha_4 + "<br>" +
-                                                 "<strong>Nº DA PORTARIA:</strong> " + feature.properties.Planilha_5 + "<br>" +
-                                                 "<strong>DATA DA PORTARIA OU AUTORIZACAO:</strong> " + feature.properties.Planilha_6 + "<br>" +
-                                                 "<strong>ORIGEM:</strong> " + feature.properties.Planilha_7 + "<br>" +
-                                                 "<strong>STATUS:</strong> " + feature.properties.Planilha_8 + "<br>" +
-                                                 "<strong>HISTORICO:</strong> " + feature.properties.Planilha_9 + "<br>" +
-                                                 "<strong>LOGRADOURO:</strong> " + feature.properties.Planilha10 + "<br>" +
-                                                 "<strong>REFERENCIA:</strong> " + feature.properties.Planilha11 + "<br>" +
-                                                 "<strong>TIPO:</strong> " + feature.properties.Planilha12 + "<br>" +
-                                                 "<strong>ENDEREÇO:</strong> " + feature.properties.Planilha13 + "<strong> BAIRRO:</strong> " + feature.properties.Planilha14 + "<br>" +
-                                                 "<strong>AP:</strong> " + feature.properties.Planilha15 + "<br>" +
-                                                 "<strong>SAIDA 1:</strong> " + feature.properties.Planilha16 + "<br>" +
-                                                 "<strong>DESTINO 1:</strong> " + feature.properties.Planilha17 + "<br>" +
-                                                 "<strong>RETORNO 1:</strong> " + feature.properties.Planilha18 + "<br>" +
-                                                 "<strong>SAIDA 2:</strong> " + feature.properties.Planilha19 + "<br>" +
-                                                 "<strong>DESTINO 2:</strong> " + feature.properties.Planilha20 + "<br>" +
-                                                 "<strong>RETORNO 2:</strong> " + feature.properties.Planilha21 + "<br>" +
-                                                 "<strong>SAIDA 3:</strong> " + feature.properties.Planilha22 + "<br>" +
-                                                 "<strong>DESTINO 3:</strong> " + feature.properties.Planilha23 + "<br>" +
-                                                 "<strong>RETORNO 3:</strong> " + feature.properties.Planilha24 + "<br>" +
-                                                 "<strong>SAIDA 4:</strong> " + feature.properties.Planilha25 + "<br>" +
-                                                 "<strong>DESTINO 4:</strong> " + feature.properties.Planilha26 + "<br>" +
-                                                 "<strong>RETORNO 4:</strong> " + feature.properties.Planilha27 + "<br>" +
-                                                 "<strong>SAIDA 5:</strong> " + feature.properties.Planilha28 + "<br>" +
-                                                 "<strong>DESTINO 5:</strong> " + feature.properties.Planilha29;
-
+                            var tooltipContent = "<strong>CONTROLE:</strong> " + feature.properties.CONTROLE +  "<strong> NUMERO:</strong> " + feature.properties.ANO + "<br>" +
+                                                 "<strong>MONITOR:</strong> " + feature.properties.MONITOR + "<br>" +
+                                                 "<strong>TIPO:</strong> " + feature.properties.TIPO +  "<strong> NUMERO:</strong> " + feature.properties.Planilha_3 + "<br>" +
+                                                 "<strong>PROCESSO::</strong> " + feature.properties.PROCESSO + "<br>" +
+                                                 "<strong>NUMERO:</strong> " + feature.properties.NUMERO + "<br>" +
+                                                 "<strong>DATA_DOCUM:</strong> " + feature.properties.DATA_DOCUM + "<br>" +
+                                                 "<strong>Nº_PORTAR:</strong> " + feature.properties.Nº_PORTAR + "<br>" +
+                                                 "<strong>DATA_AUTOR:</strong> " + feature.properties.DATA_AUTOR + "<br>" +
+                                                 "<strong>ORIGEM:</strong> " + feature.properties.ORIGEM + "<br>" +
+                                                 "<strong>STATUS:</strong> " + feature.properties.STATUS + "<br>" +
+                                                 "<strong>HISTORICO:</strong> " + feature.properties.HISTORICO + "<br>" +
+                                                 "<strong>LOGRADOURO:</strong> " + feature.properties.LOGRADOURO + "<strong> BAIRRO:</strong> " + feature.properties.BAIRRO + "<br>" +
+                                                 "<strong>REFERENCIA:</strong> " + feature.properties.REFERENCIA + "<br>" +
+                                                 "<strong>T_FECHAMEN:</strong> " + feature.properties.T_FECHAMEN + "<br>" +
+                                                 "<strong>ENDERECO:</strong> " + feature.properties.ENDERECO + "<br>" +
+                                                 "<strong>AP:</strong> " + feature.properties.AP + "<br>" +
+                                                 "<strong>SAIDA_1:</strong> " + feature.properties.SAIDA_1 + "<br>" +
+                                                 "<strong>DESTINO_1:</strong> " + feature.properties.DESTINO_1 + "<br>" +
+                                                 "<strong>RETORNO_1:</strong> " + feature.properties.RETORNO_1 + "<br>" +
+                                                 "<strong>SAIDA_2:</strong> " + feature.properties.SAIDA_2 + "<br>" +
+                                                 "<strong>DESTINO_2:</strong> " + feature.properties.DESTINO_2 + "<br>" +
+                                                 "<strong>RETORNO_2:</strong> " + feature.properties.RETORNO_2 + "<br>" +
+                                                 "<strong>SAIDA_3:</strong> " + feature.properties.SAIDA_3 + "<br>" +
+                                                 "<strong>DESTINO_3:</strong> " + feature.properties.DESTINO_3 + "<br>" +
+                                                 "<strong>RETORNO_3:</strong> " + feature.properties.RETORNO_3 + "<br>" +
+                                                 "<strong>SAIDA_4:</strong> " + feature.properties.SAIDA_4 + "<br>" +
+                                                 "<strong>RETORNO_4:</strong> " + feature.properties.RETORNO_4 + "<br>" +
+                                                 "<strong>SAIDA_5:</strong> " + feature.properties.SAIDA_5 + "<br>" +
+                                                 "<strong>DESTINO_5:</strong> " + feature.properties.DESTINO_5;
 
                             layer.bindTooltip(tooltipContent);
                         }
